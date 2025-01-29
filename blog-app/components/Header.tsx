@@ -8,7 +8,7 @@ function Header() {
         <div className='flex justify-between items-center'>
             <Image src={assets.blog_logo} width={180} alt='logo' className='w-[140] sm:w-auto'/>
             <div className='flex gap-8'>
-                <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6'>
+                <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 hover:border hover:border-black hover:shadow-[-7px_7px_0px#000000]'>
                     Home
                 </button>
                 <button className='flex items-center gap-2 font-medium py-1 px-3 sm:py-3 sm:px-6 border border-solid border-black shadow-[-7px_7px_0px#000000]'>
