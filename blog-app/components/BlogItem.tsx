@@ -20,8 +20,8 @@ const BlogItem: React.FC<BlogItemProps> = ({ title, image, category, description
       <div className="p-5">
         <h5 className="mb-2 text-lg font-medium tracking-tight text-gray-700">{title}</h5>
         <p className="mb-3 text-sm tracking-tight text-gray-700">{description}</p>
-        <Link href={`/blogs/${id}`}>
-          <a className="inline-flex items-center py-2 font-semibold text-center">Read more</a>
+        <Link href={`/blogs/${id}`} className="inline-flex items-center py-2 font-semibold text-center">
+          Read more
         </Link>
       </div>
     </div>
