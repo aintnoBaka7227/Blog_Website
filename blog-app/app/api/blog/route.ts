@@ -2,6 +2,13 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { writeFile } from "fs/promises";
 import BlogModel from "@/lib/models/BlogModel";
+import { connectDB } from "@/lib/config/db";
+
+const loadDB = async () => {
+    await connectDB();
+}
+
+loadDB();
 
 export async function POST(request: NextRequest) {
     try {
