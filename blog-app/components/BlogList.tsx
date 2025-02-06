@@ -1,9 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { blog_data } from '@/asset/assets'
 import BlogItem from './BlogItem'
+import axios from 'axios';
+import { StaticImageData } from 'next/image';
+
+interface Blog {
+  title: string;
+  image: string | StaticImageData;
+  category: string;
+  description: string;
+  _id: string | number;
+}
 
 function BlogList() {
     const [menu, setMenu] = useState("All");
+    const [blogs,setBlogs] = useState<Blog[]>([]);
+
+    const fetchBlogs = async () => {
+        axios.get('http://localhost:3000/api/blog')
+        .then(response => {
+            setBlogs(response.data.blogs)
+            console.log(response.data.blogs);
+        })
+        .catch(error => {
+            console.error("ERROR fetching");
+        })
+    }
+    
+    useEffect(() =>{
+        fetchBlogs();
+    }, []); 
 
     const buttonClass = (category:string) => 
         `py-1 px-4 rounded-sm transition-all duration-300 ease-in-out transform 
@@ -25,8 +51,8 @@ function BlogList() {
         </div>
         </div>
         <div className='flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24'>
-            {blog_data.filter((item)=> menu==="All" ? true:item.category===menu).map((item,index)=>{
-                return <BlogItem id={item.id} key={index} image={item.image} title={item.title} description={item.description} category={item.category}/>
+            {blogs.filter((item)=> menu==="All" ? true:item.category===menu).map((item,index)=>{
+                return <BlogItem id={item._id} key={item._id} image={item.image} title={item.title} description={item.description} category={item.category}/>
             })}
         </div>
     </div>

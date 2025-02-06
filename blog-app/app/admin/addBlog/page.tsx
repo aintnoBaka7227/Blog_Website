@@ -49,7 +49,7 @@ function Page() {
         description:'',
         category:'Coding',
         author:'Phong Tran',
-        author_img:'/blog-logo.png'
+        author_img:'/blog_logo.png'
       });
     })
     .catch(error => {

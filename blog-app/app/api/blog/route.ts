@@ -10,6 +10,24 @@ const loadDB = async () => {
 
 loadDB();
 
+export async function GET(request: NextRequest) {
+    try {
+        const blogId = request.nextUrl.searchParams.get("id");
+        if (blogId) {
+            const blog = await BlogModel.findById(blogId);
+            return NextResponse.json({blog});
+        }
+        else {
+            const blogs = await BlogModel.find({});
+            return NextResponse.json({blogs});
+        }
+    }
+    catch (err) {
+        console.error("error fetching blogs");
+        return NextResponse.json({ error: "Failed to fetch blogs" }, { status: 500 });
+    }
+}
+
 export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();
