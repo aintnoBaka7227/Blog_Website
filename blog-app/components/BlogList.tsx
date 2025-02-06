@@ -6,7 +6,8 @@ function BlogList() {
     const [menu, setMenu] = useState("All");
 
     const buttonClass = (category:string) => 
-        `py-1 px-4 rounded-sm ${menu === category ? 'bg-black text-white' : ''}`;
+        `py-1 px-4 rounded-sm transition-all duration-300 ease-in-out transform 
+        ${menu === category ? 'bg-black text-white scale-105' : 'bg-white text-gray-700 hover:bg-black hover:text-white hover:scale-105'}`;
 
   return (
     <div>
