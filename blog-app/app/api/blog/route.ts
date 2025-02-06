@@ -3,6 +3,9 @@ import { NextRequest } from "next/server";
 import { writeFile } from "fs/promises";
 import BlogModel from "@/lib/models/BlogModel";
 import { connectDB } from "@/lib/config/db";
+import path from "path";
+
+const fs = require("fs");
 
 const loadDB = async () => {
     await connectDB();
@@ -59,5 +62,36 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         console.error("Error saving blog:", error);
         return NextResponse.json({ error: "Failed to create blog" }, { status: 500 });
+    }
+}
+
+export async function DELETE(request: NextRequest) {
+    try {
+        const id = request.nextUrl.searchParams.get('mongoID');
+        if (!id) {
+            return NextResponse.json({ error: "Blog ID is required" }, { status: 400 });
+        }
+        const blog = await BlogModel.findById(id);
+        if (!blog) {
+            return NextResponse.json({ error: "Blog not found" }, { status: 404 });
+        }
+        if (blog.image) {
+            const imagePath = path.join('./public', blog.image);
+            fs.unlink(imagePath, (err: NodeJS.ErrnoException) => {
+              if (err) {
+                console.error("Error deleting image:", err);
+                return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });
+              }
+              console.log("Image deleted successfully");
+            });
+          } else {
+            console.log("No image to delete");
+        }
+        await BlogModel.findByIdAndDelete(id);
+        return NextResponse.json({msg: "Blog deleted successfully"});
+        }
+    catch (error) {
+        console.error("Error saving blog:", error);
+        return NextResponse.json({ error: "Failed to delete blog" }, { status: 500 });
     }
 }
