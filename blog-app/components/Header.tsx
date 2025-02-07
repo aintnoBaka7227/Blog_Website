@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { assets } from '@/asset/assets'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Header() {
+    const [email, setEmail] = useState("");
+
+    const onSubmitHandler = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('email', email);
+        axios.post('http://localhost:3000/api/email', formData) 
+        .then(response => {
+            console.log(response.data.email);
+            toast.success(response.data.msg)
+            setEmail("");
+        })
+        .catch(error => {
+            console.log('error subscribe email');
+            toast.error(error.msg);
+        })
+    }
   return (
     <div className='py-5 px-5 md:px-12 lg:px-28'>
         <div className='flex justify-between items-center'>
@@ -25,8 +44,8 @@ function Header() {
                 dafsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssfadsfasdfasdfasdfasdfasdfasdfasfdasdfasdfasdfasdfdsfasdfasfds
                 </p>
                 <form className='flex justify-between max-w-[500px] scale-75 sm:scale-100 mx-auto mt-10 border border-black shadow-[-7px_7px_0px#000000]' action=''>
-                    <input type='email' placeholder='Enter your email' className='pl-4 outline-none'></input>
-                    <button type='submit' className='border-l border-black py-4 px-4 sm:px-8 active:bg-gray-600 active:text-white'>Subscribe</button>
+                    <input onChange={(e)=>setEmail(e.target.value)} value={email} type='email' placeholder='Enter your email' className='pl-4 outline-none'></input>
+                    <button onClick={onSubmitHandler} type='submit' className='border-l border-black py-4 px-4 sm:px-8 active:bg-gray-600 active:text-white'>Subscribe</button>
                 </form>
             </div>
         </div>
