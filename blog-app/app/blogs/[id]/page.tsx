@@ -58,11 +58,13 @@ function page({ params }:PageProps) {
         </div>        
     </div>
     <div className='mx-5 max-w-[800px] md:mx-auto mt-[-100px] mb-10'>
-        <Image src={data.image} width={1280} height={720} alt='image'/>
-        <h2 className='my-8 text-[26px] font-semibold'>Introduction:</h2>
-        <p>{data.description}</p>
+        <Image className='border-4 border-white' src={data.image} width={1280} height={720} alt='image'/>
+        <div className='blog-content' dangerouslySetInnerHTML={{__html:data.description}}>
+
+        </div>
         <br/>
-        <div className='text-black font font-semibold my-4'>
+        <div className='my-24'> {
+            <div className='text-black font font-semibold my-4'>
             <p>Share this article on social media</p>
             <div className='flex gap-2'>
                 <FontAwesomeIcon icon={faFacebook} className="fa-brands fa-facebook text-[20px]"/>
@@ -70,6 +72,8 @@ function page({ params }:PageProps) {
                 <FontAwesomeIcon icon={faXTwitter} className="fa-brands fa-x-twitter text-[20px]"/>
                 <FontAwesomeIcon icon={faLinkedin} className="fa-brands fa-linkedin text-[20px]"/>
             </div>
+        </div>}
+
         </div>
     </div>
     <Footer/>
