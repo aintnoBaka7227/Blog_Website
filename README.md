@@ -10,6 +10,7 @@ Main functionality:
 Future features:
 - Sign up and login
 - Email notifications
+- comments, user rating
 
 ## Getting Started
 
